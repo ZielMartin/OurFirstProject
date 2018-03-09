@@ -15,6 +15,18 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+	main {
+		java {
+			srcDir 'src/main/java'
+		}
+		resources {
+			srcDir 'src/main/res'
+		}
+	}
+}
+
+
 apply plugin: 'javafx-gradle-plugin'
 
 
