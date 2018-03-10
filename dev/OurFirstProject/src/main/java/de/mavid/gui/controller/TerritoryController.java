@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class TerritoryController {
-	@FXML
+	@FXML 
 	private TextField helloWorld;
 	
 	
