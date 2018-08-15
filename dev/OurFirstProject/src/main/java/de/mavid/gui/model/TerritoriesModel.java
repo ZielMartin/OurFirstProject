@@ -1,5 +1,9 @@
 package de.mavid.gui.model;
 
+import java.util.List;
+
+import de.mavid.data.DataAccess;
+import de.mavid.data.Entities.Territory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -8,12 +12,15 @@ public class TerritoriesModel {
 
 	public TerritoriesModel() {
 		this.territories = FXCollections.observableArrayList();
-		TerritoryModel x = new TerritoryModel();
-		x.setName("x");
-		TerritoryModel y = new TerritoryModel();
-		y.setName("y");
 		
-		this.territories.addAll(x, y);
+		List<Territory> l = DataAccess.getInstance().getAll(Territory.class);
+		
+		for(Territory t : l) {
+			TerritoryModel tM = new TerritoryModel();
+			tM.setName(t.getName());
+			tM.setNumber(t.getNumber());
+			this.territories.add(tM);
+		}
 	}
 	
 	public ObservableList<TerritoryModel> getTerritories() {
