@@ -2,6 +2,7 @@ package de.mavid.main;
 
 
 
+import de.mavid.gui.controller.TerritoriesController;
 import de.mavid.gui.controller.TerritoryController;
 import javafx.application.Application;
 
@@ -11,9 +12,10 @@ public class App extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+    	Utility.setStage(primaryStage);
         primaryStage.setTitle("Hello World!");
         
-        TerritoryController.ShowView(primaryStage);
+        TerritoriesController.ShowView(primaryStage);
         
         primaryStage.show();
     }

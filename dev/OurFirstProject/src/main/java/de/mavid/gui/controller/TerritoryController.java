@@ -2,10 +2,10 @@ package de.mavid.gui.controller;
 
 import de.mavid.gui.model.TerritoryModel;
 import de.mavid.gui.view.TerritoryView;
+import de.mavid.main.Utility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -19,18 +19,13 @@ public class TerritoryController implements Initializable {
 	private TextField number;
 	@FXML
 	private TextField name;
-	
-	
+
 	public TerritoryController(TerritoryModel model) {
 		this.model = model;
 	}
 
 	public static void ShowView(Stage stage) {
-		try {
-			new TerritoryView().start(stage, new TerritoryModel());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		ShowView(stage, new TerritoryModel());
 	}
 
 	public static void ShowView(Stage stage, TerritoryModel model) {
@@ -43,6 +38,7 @@ public class TerritoryController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Utility.makeTextfieldNumbersOnly(this.number);
 		this.number.textProperty().bindBidirectional(this.model.numberProperty(), new StringConverter<Number>() {
 			@Override
 			public String toString(Number number) {
@@ -51,7 +47,10 @@ public class TerritoryController implements Initializable {
 
 			@Override
 			public Number fromString(String string) {
-				return Long.valueOf(string);
+				if (string.length() > 0)
+					return Long.valueOf(string);
+				else
+					return null;
 			}
 		});
 	}
