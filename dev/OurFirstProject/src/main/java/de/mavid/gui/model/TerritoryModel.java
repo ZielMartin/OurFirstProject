@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class TerritoryModel {
+	private long id;
     private LongProperty numberProperty;
     private StringProperty nameProperty;
     private StringProperty imageb64Property;
@@ -14,6 +15,14 @@ public class TerritoryModel {
         this.numberProperty = new SimpleLongProperty(0);
         this.nameProperty = new SimpleStringProperty("");
         this.imageb64Property = new SimpleStringProperty("");
+    }
+    
+    public long getId() {
+    	return this.id;
+    }
+    
+    public void setId(long id) {
+    	this.id = id;
     }
 
     public long getNumber() {

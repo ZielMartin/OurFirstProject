@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import de.mavid.gui.controller.TerritoriesController;
-import de.mavid.gui.controller.TerritoryController;
 import de.mavid.gui.model.TerritoriesModel;
-import de.mavid.gui.model.TerritoryModel;
+import de.mavid.main.Utility;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -15,7 +14,8 @@ import javafx.util.Callback;
 
 public class TerritoriesView {
 
-	public void start(Stage stage, TerritoriesModel model) {
+	public void start(TerritoriesModel model) {
+		Stage stage = Utility.getStage();
 		URL resource = getClass().getResource("/fxml/TerritoriesView.fxml");
 		Pane root = null;
 		try {

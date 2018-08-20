@@ -19,32 +19,10 @@ import org.hibernate.service.ServiceRegistry;
 
 public class DataAccess {
 	private static DataAccess instance;
-	private SessionFactory sessionFactory;
-	private ServiceRegistry serviceRegistry;
+	private SessionFactoryWrapper sessionFactoryWrapper;
 
 	private DataAccess() {
-		
-		//Configuration config = new Configuration().configure();
-		//ServiceRegistry servReg = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
-		//SessionFactory factory = config.buildSessionFactory(servReg);
-		
-		
-		// A SessionFactory is set up once for an application!
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-		try {
-			Configuration configuration = new Configuration();
-			configuration.addAnnotatedClass(de.mavid.data.Entities.Territory.class);
-			configuration.configure();
-
-			Properties properties = configuration.getProperties();
-
-			this.serviceRegistry = new StandardServiceRegistryBuilder().applySettings(properties).build();
-			this.sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-		} catch (Exception e) {
-			// The registry would be destroyed by the SessionFactory, but we had trouble
-			// building the SessionFactory so destroy it manually.
-			StandardServiceRegistryBuilder.destroy(registry);
-		}
+		sessionFactoryWrapper = new SessionFactoryWrapper(de.mavid.data.Entities.Territory.class);
 	}
 
 	public static DataAccess getInstance() {
@@ -54,12 +32,16 @@ public class DataAccess {
 		return instance;
 	}
 
+	public static void destroy() {
+		instance.sessionFactoryWrapper.getSessionFactory().close();
+	}
+
 	public void save(Object object) {
 		Session session = null;
 		Transaction tx = null;
 
 		try {
-			session = sessionFactory.openSession();
+			session = sessionFactoryWrapper.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 
 			// Saving to the database
@@ -82,8 +64,9 @@ public class DataAccess {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> List<T> getAll(Class<T> entityType) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactoryWrapper.getSessionFactory().openSession();
 		List<T> list = session.createQuery("from " + entityType.getName()).list();
 		session.close();
 		return list;
@@ -91,7 +74,7 @@ public class DataAccess {
 	}
 
 	public <T> T getOne(Class<T> entityType, Serializable id) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactoryWrapper.getSessionFactory().openSession();
 		T item = session.get(entityType, id);
 		session.close();
 		return item;

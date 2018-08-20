@@ -13,18 +13,18 @@ public class Territory {
 	@Id
 	@GeneratedValue
 	@Column
-	private Integer id;
+	private long id;
 
 	@Column
 	private String name;
 
 	@Column
-	private Integer number;
+	private long number;
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -34,10 +34,10 @@ public class Territory {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getNumber() {
+	public long getNumber() {
 		return this.number;
 	}
-	public void setNumber(int number) {
+	public void setNumber(long number) {
 		this.number = number;
 	}
 	

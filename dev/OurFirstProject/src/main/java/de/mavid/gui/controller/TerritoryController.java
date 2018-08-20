@@ -24,13 +24,13 @@ public class TerritoryController implements Initializable {
 		this.model = model;
 	}
 
-	public static void ShowView(Stage stage) {
-		ShowView(stage, new TerritoryModel());
+	public static void ShowView() {
+		ShowView(new TerritoryModel());
 	}
 
-	public static void ShowView(Stage stage, TerritoryModel model) {
+	public static void ShowView(TerritoryModel model) {
 		try {
-			new TerritoryView().start(stage, model);
+			new TerritoryView().start(model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

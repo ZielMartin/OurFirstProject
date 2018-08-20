@@ -5,6 +5,7 @@ import java.net.URL;
 
 import de.mavid.gui.controller.TerritoryController;
 import de.mavid.gui.model.TerritoryModel;
+import de.mavid.main.Utility;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +17,8 @@ import javafx.util.Callback;
 
 public class TerritoryView {
 
-	public void start(Stage stage, TerritoryModel model) {
+	public void start(TerritoryModel model) {
+		Stage stage = Utility.getStage();
 		URL resource = getClass().getResource("/fxml/TerritoryView.fxml");
 		Pane root = null;
 		try {

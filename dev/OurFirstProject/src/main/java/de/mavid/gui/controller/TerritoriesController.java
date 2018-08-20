@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import de.mavid.gui.model.TerritoriesModel;
 import de.mavid.gui.model.TerritoryModel;
 import de.mavid.gui.view.TerritoriesView;
+import de.mavid.gui.view.TerritoryView;
 import de.mavid.main.TerritoryListCell;
 import de.mavid.main.Utility;
 import javafx.beans.value.ChangeListener;
@@ -33,16 +34,20 @@ public class TerritoriesController implements Initializable {
 		this.model = model;
 	}
 
-	public static void ShowView(Stage stage) {
-		ShowView(stage, new TerritoriesModel());
+	public static void ShowView() {
+		ShowView(new TerritoriesModel());
 	}
 
-	public static void ShowView(Stage stage, TerritoriesModel model) {
+	public static void ShowView(TerritoriesModel model) {
 		try {
-			new TerritoriesView().start(stage, model);
+			new TerritoriesView().start(model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void openNewTerritoryView() {
+		TerritoryController.ShowView();
 	}
 
 	@Override
@@ -61,7 +66,7 @@ public class TerritoriesController implements Initializable {
 
 		    @Override
 		    public void changed(ObservableValue<? extends TerritoryModel> observable, TerritoryModel oldValue, TerritoryModel newValue) {
-		        TerritoryController.ShowView(Utility.getStage(), newValue);
+		        TerritoryController.ShowView(newValue);
 		    }
 		});
 
